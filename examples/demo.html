@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Name Generator</title>
+  <style>
+    .names-block {
+      display: inline-block;
+      margin: 10px;
+      min-width: 150px;
+    }
+  </style>
+</head>
+<body>
+<form method="get" onsubmit="return false;">
+  <h3>English Names</h3>
+  <div id="english_names"></div>
+  <p><input type="button" value="Generate" onclick="more_names('english_names');"/></p>
+
+  <h3>Planetary Names</h3>
+  <div id="planetary_names"></div>
+  <p><input type="button" value="Generate" onclick="more_names('planetary_names');"/></p>
+
+  <h3>Russian Names</h3>
+  <div id="russian_names"></div>
+  <p><input type="button" value="Generate" onclick="more_names('russian_names');"/></p>
+</form>
+<script>
+  var exports = {};
+</script>
+<script type="text/javascript" src="../dist/index.js"></script>
+<script type="text/javascript" src="data_set/russian_names.js"></script>
+<script type="text/javascript" src="data_set/english_names.js"></script>
+<script type="text/javascript" src="data_set/planetary_names.js"></script>
+<script type="text/javascript">
+  'use strict';
+  var nameGen = new exports.NameGenerator();
+
+  nameGen.setChainFromValues("english_names", english_names);
+  nameGen.setChainFromValues("planetary_names", planetary_names);
+  nameGen.setChainFromValues("russian_names", russian_names);
+  
+  console.log(nameGen);
+
+  function genNames(type, total) {
+    var html = "";
+    var list = [];
+    for (var i = total; --i >= 0;) {
+      list.push(nameGen.random(type));
+    }
+    list.sort();
+    for (var el = list.splice(0, 20).join("<br />\n"); el !== ""; el = list.splice(0, 20).join("<br />\n")) {
+      html += '<div class="names-block">' + el + '</div>';
+    }
+    return html;
+  }
+
+  function more_names(type) {
+    var b = document.getElementById(type);
+    var html = "";
+    html += genNames(type, 100);
+    b.innerHTML = html;
+  }
+
+  more_names("english_names");
+  more_names("planetary_names");
+  more_names("russian_names");
+</script>
+</body>
+</html>
