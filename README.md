@@ -1,6 +1,6 @@
 # Random Name Generator
 
-Generate original names with Markov chains. Name generator written in TypeScript.
+Generate original names with Markov chains.
 
 ## Usage
 
@@ -21,3 +21,5 @@ nameGen.setChainFromValues("planetary_names", chain);
   
 console.log( nameGen.random("planetary_names") );
 ```
+
+The name generator was written using TypeScript.
